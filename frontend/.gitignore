@@ -27,9 +27,9 @@ yarn-error.log
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
-
+.gitignore
 # Miscellaneous
-/.angular/cache
+**/.angular/cache
 .sass-cache/
 /connect.lock
 /coverage
