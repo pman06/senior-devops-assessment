@@ -1,0 +1,36 @@
+name: Continuous Integration Workflow
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_FE:
+    name: Build Frontend Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node 20
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Install deps
+        run: |
+          cd frontend && npm i
+          npm install -g @angular/cli
+
+      - name: Compile code
+        run: ng build
+
+      - name: Unit Test
+        run: ng test --browsers ChromeHeadless
+
+      #- name: Run Lint
+
+  build_BE:
+    name: Build backend Artifacts
+    runs-on: ubuntu-latest
