@@ -31,6 +31,6 @@ jobs:
 
       #- name: Run Lint
 
-  build_BE:
-    name: Build backend Artifacts
-    runs-on: ubuntu-latest
+  # build_BE:
+  #   name: Build backend Artifacts
+  #   runs-on: ubuntu-latest
