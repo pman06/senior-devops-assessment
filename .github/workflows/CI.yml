@@ -39,13 +39,14 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: frontend/
+          load: true
           file: frontend/Dockerfile
           tags: ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
 
       - name: Test docker build run
         run: |
           docker images
-          docker run -rm ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
+          docker run --rm ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
   # build_BE:
   #   name: Build backend Artifacts
   #   runs-on: ubuntu-latest
