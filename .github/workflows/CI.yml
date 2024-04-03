@@ -1,10 +1,10 @@
 name: Continuous Integration Workflow
 
 on:
-  pull_request:
   push:
     branches:
       - main
+      - feature/*
 
 jobs:
   build_FE:
@@ -27,7 +27,7 @@ jobs:
         run: cd frontend && ng build
 
       - name: Unit Test
-        run: cd frontend && ng test --browsers ChromeHeadless
+        run: cd frontend && ng test --no-watch --no-progress --browsers=ChromeHeadless
 
       # - name: Build Docker
 
