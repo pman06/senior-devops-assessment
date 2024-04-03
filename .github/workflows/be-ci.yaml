@@ -43,5 +43,5 @@ jobs:
       - name: Test docker build run
         run: |
           docker images
-          docker run --rm -d -p 80:80 ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
-          if curl -sI localhost:80 | grep "200 OK"; then echo "Working"; exit 0 else echo "Not close"; exit 1; fi
+          docker run --rm -d -p 8080:8080 ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+          if curl -sI localhost:80 | grep "Hello World"; then echo "Working"; exit 0; else echo "Not close"; exit 1; fi

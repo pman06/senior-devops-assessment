@@ -53,4 +53,4 @@ jobs:
         run: |
           docker images
           docker run --rm -d -p 80:80 ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
-          if curl -sI localhost:80 | grep "200 OK"; then echo "Working"; exit 0 else echo "Not close"; exit 1; fi
+          if curl -sI localhost:80 | grep "200 OK"; then echo "Working"; exit 0; else echo "Not close"; exit 1; fi
