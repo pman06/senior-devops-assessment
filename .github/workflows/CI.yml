@@ -45,6 +45,7 @@ jobs:
       - env:
           DOCKERHUBUSERNAME: ${{ needs.Get-Hub-Repo.outputs.hubname }}
         run: |
+          env
           echo $DOCKERHUBUSERNAME
           echo $DOCKERHUB_USERNAME
 
