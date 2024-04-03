@@ -5,6 +5,9 @@ on:
     branches:
       - main
       - feature/*
+    paths:
+      - frontend/**
+      - .github/workflows/**
 
 jobs:
   build_FE:
@@ -37,7 +40,7 @@ jobs:
         with:
           context: .
           file: ./frontend/Dockerfile
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/andgular-FE:latest
+          tags: ${{ env.DOCKERHUBUSERNAME }}/andgular-FE:latest
 
   # build_BE:
   #   name: Build backend Artifacts
