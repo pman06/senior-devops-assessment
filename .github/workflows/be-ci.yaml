@@ -1,0 +1,47 @@
+name: Continuous Integration BE
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+    paths:
+      - backend/**
+      - .github/workflows/**
+jobs:
+  build_BE:
+    name: Build backend Artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 6.x
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "8.x"
+
+      - name: Install dependencies
+        run: cd backend && dotnet restore
+
+      - name: Build
+        run: cd backend && dotnet build
+
+      - name: Test
+        run: cd backend && dotnet test
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build
+        uses: docker/build-push-action@v5
+        with:
+          context: backend/
+          load: true
+          file: backend/Dockerfile
+          tags: ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+
+      - name: Test docker build run
+        run: |
+          docker images
+          docker run --rm -d -p 80:80 ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+          if curl -sI localhost:80 | grep "200 OK"; then echo "Working"; exit 0 else echo "Not close"; exit 1; fi

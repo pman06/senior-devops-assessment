@@ -1,4 +1,4 @@
-name: Continuous Integration Workflow
+name: Continuous Integration FE
 
 on:
   push:
@@ -20,6 +20,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20.x
+
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: frontend/node_modules
+          key: fe-node-${{ hashFiles('frontend/package-lock.json') }}
 
       - name: Install deps
         run: |
@@ -46,7 +52,5 @@ jobs:
       - name: Test docker build run
         run: |
           docker images
-          docker run --rm -d ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
-  # build_BE:
-  #   name: Build backend Artifacts
-  #   runs-on: ubuntu-latest
+          docker run --rm -d -p 80:80 ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
+          if curl -sI localhost:80 | grep "200 OK"; then echo "Working"; exit 0 else echo "Not close"; exit 1; fi
