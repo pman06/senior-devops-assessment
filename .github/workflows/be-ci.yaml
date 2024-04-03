@@ -44,4 +44,6 @@ jobs:
         run: |
           docker images
           docker run --rm -d -p 8080:8080 ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+          sleep 3
+          curl -s localhost:8080
           if curl -s localhost:8080 | grep "Hello World"; then echo "Working"; exit 0; else echo "Not close"; exit 1; fi

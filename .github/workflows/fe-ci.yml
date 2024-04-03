@@ -7,7 +7,6 @@ on:
       - feature/*
     paths:
       - frontend/**
-      - .github/workflows/**
 
 jobs:
   build_FE:
