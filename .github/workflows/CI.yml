@@ -24,10 +24,12 @@ jobs:
           npm install -g @angular/cli
 
       - name: Compile code
-        run: ng build
+        run: cd frontend && ng build
 
       - name: Unit Test
-        run: ng test --browsers ChromeHeadless
+        run: cd frontend && ng test --browsers ChromeHeadless
+
+      - name: Build Docker
 
       #- name: Run Lint
 
