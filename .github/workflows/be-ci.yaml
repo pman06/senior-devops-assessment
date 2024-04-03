@@ -44,12 +44,12 @@ jobs:
           context: backend/
           load: true
           file: backend/Dockerfile
-          tags: ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+          tags: ${{ vars.DOCKERHUBUSERNAME }}/dotnet-be:latest
 
       - name: Test docker build run
         run: |
           docker images
-          docker run --rm -d -p 8080:8080 ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+          docker run --rm -d -p 8080:8080 ${{ vars.DOCKERHUBUSERNAME }}/dotnet-be:latest
           sleep 3
           if curl -s localhost:8080 | grep "Hello World"; then echo "Working"; exit 0; else echo "Not close"; exit 1; fi
 
@@ -59,4 +59,4 @@ jobs:
           context: backend/
           push: true
           file: backend/Dockerfile
-          tags: ${{ vars.DOCKERHUBUSERNAME }}/dotnet-fe:latest
+          tags: ${{ vars.DOCKERHUBUSERNAME }}/dotnet-be:latest
