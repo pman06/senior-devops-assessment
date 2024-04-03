@@ -8,8 +8,6 @@ on:
     paths:
       - frontend/**
       - .github/workflows/**
-env:
-  DOCKERHUBUSERNAME: ${{ vars.DOCKERHUBUSERNAME }}
 
 jobs:
   build_FE:
@@ -44,6 +42,10 @@ jobs:
           file: frontend/Dockerfile
           tags: ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
 
+      - name: Test docker build run
+        run: |
+          docker images
+          docker run -rm ${{ vars.DOCKERHUBUSERNAME }}/angular-fe:latest
   # build_BE:
   #   name: Build backend Artifacts
   #   runs-on: ubuntu-latest
